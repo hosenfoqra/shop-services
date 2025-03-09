@@ -1,0 +1,7 @@
+<div>
+    <div  class="products-list">
+        <div *ngFor="let item of itemsList">
+            <app-products [itemId]="item.id" [title]="item.title" [price]="item.price" [selected]="item.selected" (itemClicked)="addRemoveItem($event)"></app-products>
+        </div>
+    </div>
+</div>
