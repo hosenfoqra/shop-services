@@ -1,0 +1,8 @@
+<div class="product-details" *ngIf="product">
+    <h2>{{ product.title }}</h2>
+    <p>Price: {{ product.price | currency }}</p>
+    <p>Type: {{ product.type }}</p>
+    <button (click)="deleteProduct()">Delete Product</button>
+    <button (click)="toggleCart()">Add/Remove from Cart</button>
+  </div>
+  

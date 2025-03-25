@@ -1,29 +1,43 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
-import { ShopComponent } from './shop/shop.component';
-import { ProductsComponent } from './shop/products/products.component';
-import { CartComponent } from './shop/cart/cart.component';
-import { ProductsPageComponent } from './shop/products-page/products-page.component';
-import { ProductDetailsComponent } from './shop/product-details/product-details.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
+import { ShopComponent } from './components/shop/shop.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
+import { HomeComponent } from './components/home/home.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { CartComponent } from './components/cart/cart.component';
+import { AboutComponent } from './components/about/about.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     ShopComponent,
+    NavBarComponent,
+    SideBarComponent,
+    HomeComponent,
     ProductsComponent,
-    CartComponent,
-    ProductsPageComponent,
     ProductDetailsComponent,
-    LoginComponent
+    CartComponent,
+    AboutComponent,
+    ContactComponent,
+    AddProductComponent
   ],
   imports: [
-    FormsModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

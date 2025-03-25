@@ -1,0 +1,27 @@
+<div class="modal">
+    <div class="modal-content">
+      <h3>Add New Product</h3>
+      <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+        <div>
+          <label>Title:</label>
+          <input formControlName="title" type="text">
+        </div>
+        <div>
+          <label>Price:</label>
+          <input formControlName="price" type="number">
+        </div>
+        <div>
+          <label>Type:</label>
+          <select formControlName="type">
+            <option value="">Select Type</option>
+            <option value="Type1">Type1</option>
+            <option value="Type2">Type2</option>
+            <option value="Type3">Type3</option>
+          </select>
+        </div>
+        <button type="submit">Add Product</button>
+        <button type="button" (click)="close()">Cancel</button>
+      </form>
+    </div>
+  </div>
+  

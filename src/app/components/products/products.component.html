@@ -1,0 +1,32 @@
+<div class="products">
+    <h2>Products</h2>
+    <button (click)="openAddProductModal()">Add Product</button>
+    <div>
+      <button (click)="sortProducts()">
+        Sort by Price ({{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }})
+      </button>
+      <select [(ngModel)]="filterType" (change)="filterProducts()">
+        <option value="">-- Filter by Type --</option>
+        <option value="Type1">Type1</option>
+        <option value="Type2">Type2</option>
+        <option value="Type3">Type3</option>
+      </select>
+      <button (click)="clearFilter()">Cancel Filter</button>
+    </div>
+    <div class="product-list">
+      <div *ngFor="let product of filteredProducts" class="product-item">
+        <h3>{{ product.title }}</h3>
+        <p>Price: {{ product.price | currency }}</p>
+        <p>Type: {{ product.type }}</p>
+        <a [routerLink]="['product/details', product.id]">View Details</a>
+      </div>
+    </div>
+  
+    <!-- Add Product Modal -->
+    <app-add-product 
+      *ngIf="showAddProductModal" 
+      (productAdded)="onProductAdded($event)" 
+      (closeModal)="closeAddProductModal()">
+    </app-add-product>
+  </div>
+  
