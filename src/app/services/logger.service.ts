@@ -7,7 +7,7 @@ export class LoggerService {
   private isAuthenticated = false; 
 
   login(email: string, password: string): boolean {
-    if (email === 'ruba@mindolife.com' && password === '1q2w3e') { 
+    if (email === 'hosen' && password === 'hosen') { 
       this.isAuthenticated = true;
       return true;
     }
