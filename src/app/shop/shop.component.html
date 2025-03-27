@@ -1,13 +1,22 @@
-<div class="shop-container">
-    <div class="nav-bar">
-        <div class="products">
-            <button routerLink="/shop/products" [ngClass]="{pressedButton: selectedPage==0}" (click)="setClass(0)">Products</button>
-        </div>
-        <div class="cart">
-            <button routerLink="/shop/cart" [ngClass]="{pressedButton: selectedPage==1}" (click)="setClass(1)">My Cart</button>
-        </div>
+<nav class="navbar">
+    <div class="navbar-container">
+      <a class="navbar-brand" routerLink="products">MyShop</a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a routerLink="products" routerLinkActive="active">Products</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="cart" routerLinkActive="active">Cart</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="about" routerLinkActive="active">About</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="contact" routerLinkActive="active">Contact</a>
+        </li>
+      </ul>
     </div>
-    <div class="main-container">
-        <router-outlet></router-outlet>
-    </div>
-</div>
+  </nav>
+  
+  <router-outlet></router-outlet>
+  

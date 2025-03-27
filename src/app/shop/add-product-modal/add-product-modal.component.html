@@ -1,0 +1,23 @@
+<h2 mat-dialog-title class="modal-title">Add New Product</h2>
+
+<mat-dialog-content class="modal-content">
+  <mat-form-field appearance="outline">
+    <mat-label>Product Title</mat-label>
+    <input matInput [(ngModel)]="product.title">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Product Type</mat-label>
+    <input matInput [(ngModel)]="product.type">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Product Price</mat-label>
+    <input matInput type="number" [(ngModel)]="product.price">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" class="modal-actions">
+  <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onAdd()">Add Product</button>
+</mat-dialog-actions>

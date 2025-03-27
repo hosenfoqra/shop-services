@@ -1,0 +1,26 @@
+.modal-title {
+    text-align: center;
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 0;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .modal-actions {
+    padding-top: 15px;
+  }
+  
+  ::ng-deep .mat-dialog-container {
+    border-radius: 15px !important;
+    padding: 20px !important;
+  }
+  

@@ -1,3 +1,14 @@
-<p>product-details works!</p>
-
-<p>you are seeing now the details of product {{id}}</p>
+<div class="product-details-container" *ngIf="product">
+    <div class="card">
+      <h2>{{ product.title }}</h2>
+      <p><strong>Type:</strong> {{ product.type }}</p>
+      <p><strong>Price:</strong> {{ product.price | currency:'USD' }}</p>
+      <p><strong>Product ID:</strong> {{ product.id }}</p>
+      <p><strong>In Cart:</strong> 
+        <span [ngClass]="product.selected ? 'in-cart' : 'not-in-cart'">
+          {{ product.selected ? 'Yes' : 'No' }}
+        </span>
+      </p>
+    </div>
+  </div>
+  

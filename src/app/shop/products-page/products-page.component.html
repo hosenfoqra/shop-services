@@ -1,7 +1,61 @@
-<div>
-    <div  class="products-list">
-        <div *ngFor="let item of itemsList">
-            <app-products [itemId]="item.id" [title]="item.title" [price]="item.price" [selected]="item.selected" (itemClicked)="addRemoveItem($event)"></app-products>
-        </div>
-    </div>
+
+<button class="btn-add-new" (click)="toggleModal()">Add New Product</button>
+
+<div class="inline-modal" *ngIf="showModal">
+  <div class="modal-header">
+    <h3>Add Product</h3>
+    <button class="close-btn" (click)="toggleModal()">✕</button>
+  </div>
+
+  <input type="text" placeholder="Title" [(ngModel)]="newProduct.title">
+  <input type="text" placeholder="Type" [(ngModel)]="newProduct.type">
+  <input type="number" placeholder="Price" [(ngModel)]="newProduct.price">
+
+  <button (click)="addProduct()" class="submit-btn">Add</button>
+</div>
+
+<div class="filters">
+    <input type="text" placeholder="Filter by type..." [(ngModel)]="selectedType" (input)="applyFilters()">
+    <select [(ngModel)]="sortOrder" (change)="applyFilters()">
+      <option value="none" selected>Sort by Price</option> 
+      <option value="asc">Price: Low → High</option>
+      <option value="desc">Price: High → Low</option>
+    </select>
+  </div>
+
+
+<div class="products-wrapper">
+  <table class="products-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Cart</th>
+        <th>Details</th>
+        <th>Delete</th> 
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemsList">
+        <td>{{ item.title }}</td>
+        <td>{{ item.type }}</td>
+        <td>{{ item.price | currency:'USD' }}</td>
+        <td>
+          <button 
+            class="btn-cart" 
+            [ngClass]="item.selected ? 'btn-remove' : 'btn-add'" 
+            (click)="addRemoveItem(item.id)">
+            {{ item.selected ? 'Remove' : 'Add' }}
+          </button>
+        </td>
+        <td>
+          <button class="btn-details" [routerLink]="['/shop/product/details', item.id]">View</button>
+        </td>
+        <td>
+          <button class="btn-delete" (click)="deleteProduct(item.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

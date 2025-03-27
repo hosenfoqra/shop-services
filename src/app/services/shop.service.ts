@@ -1,21 +1,78 @@
 import { Injectable } from '@angular/core';
-import productsData from './data.json'
+import { BehaviorSubject, map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
+export interface Product {
+  id: number;
+  title: string;
+  price: number;
+  type: string;
+  selected?: boolean;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShopService {
-  productsList;
-  cartItems = [];
-  totalPayment = 0
+  productsListSubject = new BehaviorSubject<Product[]>([]);
+  cartItemsSubject = new BehaviorSubject<Product[]>([]);
+  totalPayment = new BehaviorSubject<number>(0);
 
-  constructor() {
+  constructor(private http: HttpClient) {
+    this.getProducts();
+    this.getCartItems();
   }
 
-  addRemoveItemToCart(id: any){
-    console.log(id)
-    let element = this.productsList.filter((element) => element.id == id)[0]
-    element.selected = !element.selected
-    element.selected ? this.totalPayment += element.price : this.totalPayment -= element.price
+  getProducts() {
+    this.http.get<{ data: Product[] }>('http://localhost:3000/api/products').subscribe(response => {
+      this.productsListSubject.next(response.data);
+    });
+  }
+
+  getProductById(id: number): Observable<Product> {
+    return this.http.get<{ data: Product }>(`http://localhost:3000/api/products/${id}`).pipe(
+      map((response: { data: any; }) => response.data)
+    );
+  }
+  
+
+  addProduct(product: Product) {
+    this.http.post('http://localhost:3000/api/products', product).subscribe(() => {
+      this.getProducts();
+    });
+  }
+
+  deleteProduct(id: number) {
+    this.http.delete(`http://localhost:3000/api/products/${id}`).subscribe(() => {
+      this.getProducts();
+    });
+  }
+
+  filterProducts(type: string) {
+    this.http.get<{ data: Product[] }>(`http://localhost:3000/api/products?filter=${type}`).subscribe(response => {
+      this.productsListSubject.next(response.data);
+    });
+  }
+
+  getCartItems() {
+    this.http.get<{ data: Product[] }>('http://localhost:3000/api/products').subscribe(response => {
+      const selectedProducts = response.data.filter(p => p.selected);
+      this.cartItemsSubject.next(selectedProducts);
+      this.calculateTotal();
+    });
+  }
+
+  calculateTotal() {
+    const items = this.cartItemsSubject.getValue();
+    const total = items.reduce((acc, item) => acc + item.price, 0);
+    this.totalPayment.next(total);
+  }
+
+  addRemoveItemToCart(product: Product) {
+    const updatedProduct = { ...product, selected: !product.selected };
+    this.http.put(`http://localhost:3000/api/products/${product.id}`, updatedProduct).subscribe(() => {
+      this.getProducts();
+      this.getCartItems();
+    });
   }
 }

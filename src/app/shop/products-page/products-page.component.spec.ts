@@ -1,23 +1,35 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { ShopService, Product } from '../../services/shop.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddProductModalComponent } from '../add-product-modal/add-product-modal.component';
 
-import { ProductsPageComponent } from './products-page.component';
+@Component({
+  selector: 'app-products-page',
+  templateUrl: './products-page.component.html',
+  styleUrls: ['./products-page.component.css']
+})
+export class ProductsPageComponent implements OnInit {
+  itemsList: Product[] = [];
 
-describe('ProductsPageComponent', () => {
-  let component: ProductsPageComponent;
-  let fixture: ComponentFixture<ProductsPageComponent>;
+  constructor(private shopService: ShopService, private dialog: MatDialog) {}
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ProductsPageComponent ]
-    })
-    .compileComponents();
+  ngOnInit() {
+    this.shopService.getProducts();
+    this.shopService.productsListSubject.subscribe(products => {
+      this.itemsList = products;
+    });
+  }
 
-    fixture = TestBed.createComponent(ProductsPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  addRemoveItem(productId: number) {
+    const product = this.itemsList.find(p => p.id === productId);
+    if (product) {
+      this.shopService.addRemoveItemToCart(product);
+    }
+  }
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  openAddProductModal() {
+    this.dialog.open(AddProductModalComponent, {
+      width: '500px'
+    });
+  }
+}

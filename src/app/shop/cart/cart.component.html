@@ -1,5 +1,31 @@
-<div class="main-container">
-    <div class="total">
-        Your total payment amount is {{total}}$
+<div class="cart-container">
+    <h2>Your Cart</h2>
+  
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Price</th>
+          <th>Remove from Cart</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item.title }}</td>
+          <td>{{ item.type }}</td>
+          <td>{{ item.price | currency:'USD' }}</td>
+          <td>
+            <button class="btn-remove" (click)="removeFromCart(item)">
+              Remove
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="total-price">
+      <strong>Total Price: {{ totalPayment | currency:'USD' }}</strong>
     </div>
-</div>
+  </div>
+  

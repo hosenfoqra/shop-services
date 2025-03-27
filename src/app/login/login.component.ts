@@ -12,11 +12,16 @@ export class LoginComponent {
   email = '';
 
   constructor(private loggerService: LoggerService, private router: Router){}
-  onLogin(){
-    if (this.loggerService.login(this.email, this.password)) {
-      this.router.navigate(['/shop']); 
-    } else {
-      alert('Invalid credentials');
-    }
+  onLogin() {
+    this.loggerService.login(this.email, this.password).subscribe({
+      next: (data) => {
+        console.log('Login Success:', data);
+        this.router.navigate(['/products']);
+      },
+      error: (err) => {
+        console.error('Login error:', err);
+        alert('Login failed! Check credentials.');
+      }
+    });
   }
-}
+}  
