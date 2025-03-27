@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoggerService {
   private isAuthenticated = false;
 
+<<<<<<< HEAD
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string): Observable<any> {
@@ -19,6 +20,14 @@ export class LoggerService {
         this.isAuthenticated = true;
         localStorage.setItem('token', data.token);
       }));
+=======
+  login(email: string, password: string): boolean {
+    if (email === 'hosen' && password === 'hosen') { 
+      this.isAuthenticated = true;
+      return true;
+    }
+    return false;
+>>>>>>> a0b93259256b155bc10a5c5987088b35998dd0f2
   }
 
   logout(): void {
